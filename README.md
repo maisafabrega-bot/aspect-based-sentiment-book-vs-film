@@ -1,49 +1,55 @@
-# Mapeamento da Produção Científica Brasileira com PLN: Tópicos, Termos e Cautela Científica em Artigos do SciELO
+# PLN na USP: Mapeamento de Teses e Dissertações sobre Processamento de Linguagem Natural
 
 ## Visão Geral do Projeto
 
-Este projeto aplica **Processamento de Linguagem Natural (PLN)** a resumos de artigos científicos publicados no **SciELO Brasil** para mapear como uma área de pesquisa se organiza e evolui ao longo do tempo. Os resumos são coletados com o **Octoparse** e processados com o **spaCy**, com o modelo para português.
+Este projeto usa **Processamento de Linguagem Natural (PLN)** para mapear a própria pesquisa em PLN feita na **Universidade de São Paulo**. Os dados são as teses e dissertações da **Biblioteca Digital de Teses e Dissertações da USP**, coletadas com o **Octoparse** e analisadas com o **spaCy**.
 
-A pergunta central é: **quais temas, métodos e objetos de estudo dominam a pesquisa brasileira em [ÁREA] entre [ANO INICIAL] e [ANO FINAL], quais estão surgindo ou perdendo espaço, e quão cautelosa é a linguagem com que os resultados são apresentados?**
+A pergunta central é: **quais tarefas e métodos de PLN são pesquisados na USP, como eles evoluíram ao longo do tempo e como o PLN se espalhou por unidades e áreas além da Computação?**
 
-| Fonte | Recorte | Idioma | Período | Data da coleta | Nº de artigos |
-|---|---|---|---|---|---|
-| SciELO Brasil | [termos de busca / área temática] | Português | [aaaa–aaaa] | [aaaa-mm-dd] | [n] |
+| Fonte | Busca | Nº de trabalhos | Data da coleta |
+|---|---|---|---|
+| Biblioteca Digital de Teses e Dissertações da USP | "processamento de linguagem natural" (termo exato) em palavra-chave OU título | 127 | [aaaa-mm-dd] |
 
 ## Aplicabilidade
 
-- **Revisões de literatura e revisões sistemáticas:** triagem e organização de grandes volumes de artigos por tema.
-- **Identificação de lacunas:** temas pouco estudados ou em queda indicam oportunidades de pesquisa.
-- **Gestão e fomento à pesquisa:** apoio a programas de pós-graduação, agências e bibliotecas na análise da produção de uma área.
-- **Ciência aberta em português:** a maior parte das ferramentas de mapeamento científico é feita para o inglês. O projeto mostra um fluxo replicável para o português.
+- **Mapa da área:** mostra onde o PLN é pesquisado na USP, com quais métodos e em quais aplicações (Saúde, Direito, Linguística, Computação).
+- **Identificação de lacunas:** tarefas pouco estudadas e unidades que usam PLN sem diálogo com os grupos da área indicam oportunidades de pesquisa e de colaboração.
+- **Apoio à gestão da pós-graduação:** programas e bibliotecas podem usar o mesmo fluxo para acompanhar a produção de qualquer tema.
+- **Fluxo replicável:** o notebook funciona para outras buscas e outras bibliotecas de teses com a mesma estrutura de dados.
 
 ## Métodos de PLN Utilizados
 
 | Etapa | O que faz | Exemplo |
 |---|---|---|
-| **Lematização e classes gramaticais** | Reduz as palavras à forma básica e mantém só as que carregam conteúdo (substantivos, adjetivos, nomes próprios) | *"avaliadas"* → *avaliar* |
-| **Sintagmas nominais** | Extrai termos compostos, que representam melhor os conceitos de uma área | *"qualidade da água"*, *"atenção primária"* |
-| **Reconhecimento de entidades (NER)** | Identifica locais, organizações e outras entidades citadas nos resumos | *"Cerrado"*, *"Embrapa"* |
-| **Modelagem de tópicos** | Agrupa os artigos em temas a partir das palavras que coocorrem (TF-IDF + NMF; BERTopic como alternativa) | Tópico 3: *solo, carbono, manejo* |
-| **Detecção de *hedging*** | Mede a linguagem de cautela (*"sugere"*, *"pode indicar"*) e de ênfase (*"demonstra"*, *"comprova"*) | Índice por 100 palavras |
+| **Classificação por dicionário** (`PhraseMatcher` do spaCy) | Identifica a tarefa e o método de cada trabalho a partir de expressões no título, nas palavras-chave e no resumo | *"ajuste fino de um modelo BERT"* → **transformers e BERT** |
+| **Lematização e classes gramaticais** | Reduz as palavras à forma básica e mantém só as que carregam conteúdo | *"classificadores"* → *classificador* |
+| **Sintagmas nominais** | Extrai termos compostos, que representam melhor os conceitos da área | *"reconhecimento de entidades nomeadas"* |
+| **Termos emergentes** | Compara a frequência dos termos entre a primeira e a segunda metade do período | *BERT*, *LLM* em alta |
+| **Modelagem de tópicos** (TF-IDF + NMF) | Agrupa os trabalhos por temas sem usar o dicionário, o que pode revelar temas não previstos | Tópico 2: *modelo, neural, transformer* |
+| **Validação com anotação manual** | Compara a classificação automática com uma amostra anotada à mão (precisão e cobertura) | Precisão e cobertura por tarefa e por método |
 
-### O que é *hedging*?
+### Categorias de métodos
 
-Em textos científicos, *hedging* é o uso de expressões que atenuam a força de uma afirmação, como *"os resultados sugerem"* em vez de *"os resultados provam"*. Medir isso ajuda a entender como uma área apresenta a certeza dos seus achados e se isso muda ao longo do tempo ou entre subáreas.
+Os métodos são agrupados em cinco fases, que acompanham a história do PLN:
+
+1. **Regras e léxicos:** gramáticas, regras construídas à mão e dicionários.
+2. **Aprendizado de máquina clássico:** SVM, Naive Bayes, CRF.
+3. **Redes neurais e *embeddings*:** word2vec, LSTM, CNN.
+4. ***Transformers* e BERT:** BERT, BERTimbau, ajuste fino.
+5. **Grandes modelos de linguagem (LLMs):** GPT, Llama, engenharia de *prompt*.
 
 ## Fluxo do Projeto
 
-1. **Coleta de dados (Octoparse):** busca no SciELO com os termos e filtros do recorte (idioma, período, área temática) e extração dos metadados e do resumo de cada artigo. Os detalhes estão em [DATA/README.md](DATA/README.md).
-2. **Preparação dos dados (pandas):** remoção de duplicatas (pelo DOI), de resumos vazios e de artigos fora do período ou do idioma, além da normalização do texto.
-3. **Análise linguística (spaCy):** tokenização, lematização, classes gramaticais, sintagmas nominais e entidades com o modelo `pt_core_news_lg`.
-4. **Termos e tendências:** termos mais frequentes no período e termos emergentes (crescimento entre o início e o fim da série).
-5. **Tópicos:** modelagem de tópicos e participação de cada tópico por ano.
-6. **Cautela científica:** índice de *hedging* e de ênfase por artigo, por ano e por tópico.
-7. **Visualização:** gráficos de evolução temporal, termos por tópico e comparação entre tópicos.
+1. **Coleta de dados (Octoparse):** busca na Biblioteca Digital da USP e extração dos metadados e do resumo de cada trabalho. Os detalhes estão em [DATA/README.md](DATA/README.md).
+2. **Preparação dos dados (pandas):** remoção de duplicatas e de resumos vazios e normalização do texto.
+3. **Perfil da produção:** trabalhos por ano, nível (mestrado e doutorado) e unidade.
+4. **Tarefas e métodos:** classificação por dicionário e evolução dos métodos ao longo do tempo.
+5. **Termos e tópicos (spaCy e scikit-learn):** termos frequentes, termos emergentes e modelagem de tópicos.
+6. **Validação:** anotação manual de uma amostra de cerca de 40 trabalhos e cálculo de precisão e cobertura da classificação automática.
 
 ## Resultados e Insights
 
-_[Preencher ao final da análise: principais tópicos, termos emergentes, lacunas identificadas e as figuras mais relevantes.]_
+_[Preencher ao final da análise: tarefas e métodos predominantes, evolução ao longo do tempo, unidades fora da Computação e as figuras mais relevantes.]_
 
 ## Conclusões
 
@@ -51,27 +57,28 @@ _[Preencher ao final da análise.]_
 
 ## Limitações
 
-- O SciELO não indexa toda a produção brasileira. Artigos publicados em periódicos estrangeiros ou fora da base ficam de fora.
-- Resumos são curtos e padronizados: mostram o que os autores destacam, não todo o conteúdo do artigo.
-- O modelo do spaCy para português foi treinado com textos gerais, não científicos, e pode errar em termos técnicos e entidades específicas da área.
-- O léxico de *hedging* é uma lista de expressões. Ele não capta todos os usos e pode contar falsos positivos (por exemplo, *"pode"* no sentido de permissão).
+- O recorte cobre **apenas a USP**. O resultado não representa toda a pesquisa brasileira em PLN.
+- A busca depende de o termo *"processamento de linguagem natural"* aparecer no título ou nas palavras-chave. Trabalhos que usam só termos como *"linguística computacional"* ou *"mineração de texto"* podem ficar de fora.
+- Com cerca de 130 trabalhos, alguns anos têm poucos casos. As tendências são descritivas e não permitem testes estatísticos robustos.
+- O dicionário de tarefas e métodos foi construído manualmente para este projeto e pode não prever todos os termos. A validação manual mede esse erro.
+- O modelo do spaCy para português foi treinado com textos gerais, não científicos.
 
 ## Como Usar Este Repositório
 
-1. **Dados:** a pasta [DATA](DATA/) contém o dicionário de dados e uma **amostra sintética** (`artigos_sinteticos.csv`, com resumos inventados) no mesmo formato dos dados reais.
-2. **Notebook:** abra o notebook da pasta [NOTEBOOK](NOTEBOOK/) no Google Colab ou no Jupyter.
+1. **Dados:** a pasta [DATA](DATA/) contém o dicionário de dados e uma **amostra sintética** (`teses_sinteticas.csv`, com trabalhos inventados) no mesmo formato dos dados reais.
+2. **Notebook:** abra o [notebook](NOTEBOOK/analise_teses_pln.ipynb) no Google Colab ou no Jupyter.
 3. **Instalação local (opcional):**
    ```bash
    pip install -r requirements.txt
    python -m spacy download pt_core_news_lg
    ```
-4. **Execução:** ajuste as variáveis da seção *Configuração* do notebook (arquivo de entrada, período, número de tópicos) e rode as células em ordem. Sem os dados reais, o notebook roda com a amostra sintética.
+4. **Execução:** ajuste a seção *Configuração* do notebook (arquivo de entrada e número de tópicos) e rode as células em ordem. Sem os dados reais, o notebook roda com a amostra sintética.
 
-## Dados e Licenças
+## Dados e Ética
 
 - A coleta teve finalidade exclusivamente **acadêmica e não comercial**, com intervalo entre as requisições para não sobrecarregar o site.
-- O SciELO adota licenças **Creative Commons** para os artigos, mas a licença varia por periódico (CC BY, CC BY-NC etc.). Por isso, **o conjunto completo de resumos não é redistribuído aqui**. São publicados apenas os identificadores (DOI) e os resultados agregados, o que permite reconstruir a base a partir da fonte.
-- Todo uso dos resumos cita a fonte original (autores, periódico e DOI).
+- **Os resumos não são redistribuídos neste repositório**, porque pertencem aos autores dos trabalhos. É publicada apenas a lista de URLs, que permite reconstruir a base a partir da fonte.
+- Os nomes de autores não são usados na análise. Os orientadores aparecem apenas de forma agregada.
 
 ## Contribuições
 
@@ -79,23 +86,23 @@ Sugestões são bem-vindas. Abra uma *issue* ou faça um *fork* e envie um *pull
 
 ## Referências
 
-BLEI, D. M. Probabilistic topic models. **Communications of the ACM**, v. 55, n. 4, p. 77-84, 2012. DOI: 10.1145/2133806.2133826.
-
-GROOTENDORST, M. **BERTopic: neural topic modeling with a class-based TF-IDF procedure**. arXiv:2203.05794, 2022.
+DEVLIN, J.; CHANG, M.-W.; LEE, K.; TOUTANOVA, K. BERT: pre-training of deep bidirectional transformers for language understanding. In: CONFERENCE OF THE NORTH AMERICAN CHAPTER OF THE ASSOCIATION FOR COMPUTATIONAL LINGUISTICS (NAACL), 2019, Minneapolis. **Proceedings** […]. Minneapolis: ACL, 2019. p. 4171-4186.
 
 HONNIBAL, M.; MONTANI, I.; VAN LANDEGHEM, S.; BOYD, A. **spaCy: Industrial-strength Natural Language Processing in Python**. Zenodo, 2020. DOI: 10.5281/zenodo.1212303.
 
-HYLAND, K. **Hedging in scientific research articles**. Amsterdam: John Benjamins, 1998.
+JURAFSKY, D.; MARTIN, J. H. **Speech and Language Processing**. 3. ed. (rascunho). Stanford, 2024. Disponível em: https://web.stanford.edu/~jurafsky/slp3/.
 
 LEE, D. D.; SEUNG, H. S. Learning the parts of objects by non-negative matrix factorization. **Nature**, v. 401, p. 788-791, 1999. DOI: 10.1038/44565.
 
-PACKER, A. L. et al. **SciELO: 15 anos de acesso aberto**: um estudo analítico sobre acesso aberto e comunicação científica. Paris: UNESCO, 2014.
+MIKOLOV, T.; CHEN, K.; CORRADO, G.; DEAN, J. **Efficient estimation of word representations in vector space**. arXiv:1301.3781, 2013.
 
 SOUZA, F.; NOGUEIRA, R.; LOTUFO, R. BERTimbau: pretrained BERT models for Brazilian Portuguese. In: BRAZILIAN CONFERENCE ON INTELLIGENT SYSTEMS (BRACIS), 9., 2020, Rio Grande. **Proceedings** […]. Cham: Springer, 2020. p. 403-417.
 
+VASWANI, A. et al. Attention is all you need. In: ADVANCES IN NEURAL INFORMATION PROCESSING SYSTEMS (NeurIPS), 30., 2017, Long Beach. **Proceedings** […]. Red Hook: Curran Associates, 2017. p. 5998-6008.
+
 ## Licença
 
-O **código** deste repositório está sob a [Licença MIT](LICENSE). A licença **não cobre** os resumos e metadados dos artigos, que pertencem aos autores e periódicos e seguem a licença de cada publicação.
+O **código** deste repositório está sob a [Licença MIT](LICENSE). A licença **não cobre** os resumos e metadados das teses e dissertações, que pertencem aos seus autores.
 
 ## Autoria
 

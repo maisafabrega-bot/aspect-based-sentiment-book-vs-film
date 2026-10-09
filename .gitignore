@@ -1,9 +1,9 @@
-# Base coletada (NÃO versionar: licenças variam por periódico)
-# Só o README, a amostra sintética e a lista de DOIs são publicados
+# Base coletada (NÃO versionar: resumos pertencem aos autores)
+# Só o README, a amostra sintética e a lista de URLs são publicados
 DATA/*
 !DATA/README.md
-!DATA/artigos_sinteticos.csv
-!DATA/dois.csv
+!DATA/teses_sinteticas.csv
+!DATA/urls.csv
 *.xlsx
 
 # Tarefas e sessões do Octoparse
