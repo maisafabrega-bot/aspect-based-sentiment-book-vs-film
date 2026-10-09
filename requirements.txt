@@ -1,5 +1,6 @@
 # Manipulação de dados
 pandas>=2.2
+openpyxl>=3.1   # leitura da exportação do Octoparse em .xlsx
 numpy>=1.26
 
 # PLN

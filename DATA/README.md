@@ -8,9 +8,10 @@ A base completa **não é publicada** neste repositório: ela fica apenas no com
 |---|---|---|
 | `teses_sinteticas.csv` | 16 trabalhos **inventados**, no mesmo formato dos dados reais | ✅ |
 | `urls.csv` | Lista das URLs dos trabalhos analisados (gerada pelo notebook) | ✅ |
-| `teses_usp_pln_<data>.csv` | Exportação do Octoparse | ❌ |
+| `Biblioteca_de_Teses_-_Home1.xlsx` | Exportação do Octoparse (uma linha por campo) | ❌ |
+| `teses_usp_pln.csv` | Base tratada, uma linha por trabalho (gerada pelo notebook 01) | ❌ |
 | `anotacao_manual.csv` | Amostra anotada à mão para a validação (gerada pelo notebook) | ❌ |
-| `resultados/` | Tabelas geradas pelo notebook | ❌ (as figuras finais vão no README) |
+| `resultados/` | Tabelas geradas pelo notebook 02 | ❌ (as figuras finais vão no README) |
 
 ## Dicionário de dados
 
@@ -50,7 +51,9 @@ A tabela de resultados não mostra o resumo, então a tarefa tem **dois níveis*
 1. **Lista de resultados:** depois de fazer a busca no navegador do Octoparse, mude a paginação para **50 por página**. Crie um loop sobre as linhas da tabela e extraia título, link, área de concentração, nível, unidade e ano de defesa. Configure a paginação pelo botão **"Próxima página →"** (*Pagination → Click to paginate*). Com 127 resultados, são 3 páginas.
 2. **Página de cada trabalho:** para cada link, abra a página e extraia orientador, palavras-chave, resumo em português e resumo em inglês.
 
-Configuração da execução: **local**, com intervalo de 3 a 5 s entre as ações e uma execução por vez. Exporte em **CSV (UTF-8)** e renomeie as colunas conforme o dicionário acima.
+Configuração da execução: **local**, com intervalo de 3 a 5 s entre as ações e uma execução por vez. Exporte em **Excel** ou **CSV (UTF-8)** e salve nesta pasta. O notebook `01_tratamento_coleta` faz a conversão para o dicionário acima.
+
+> ⚠️ **Desative a remoção de duplicatas do Octoparse.** A exportação tem uma linha por campo (ex.: *Unidade da USP → ICMC*). Com a remoção de duplicatas ativa, linhas iguais de trabalhos diferentes são apagadas, e campos como unidade, área de concentração e orientador ficam vazios na maioria dos trabalhos. Para evitar isso, inclua também a URL da página (*Page URL*) em cada linha extraída.
 
 ### 3. Conferência
 - O número de linhas exportadas deve ser igual ao total da busca (127).
