@@ -1,0 +1,18 @@
+# Manipulação de dados
+pandas>=2.2
+numpy>=1.26
+
+# PLN
+spacy>=3.7,<4
+# modelo: python -m spacy download pt_core_news_lg
+
+# Tópicos (TF-IDF + NMF)
+scikit-learn>=1.4
+
+# Visualização
+matplotlib>=3.8
+
+# Notebooks
+jupyterlab>=4.1
+
+# Opcional (seção 8 do notebook): pip install bertopic sentence-transformers

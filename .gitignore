@@ -1,0 +1,22 @@
+# Base coletada (NÃO versionar: licenças variam por periódico)
+# Só o README, a amostra sintética e a lista de DOIs são publicados
+DATA/*
+!DATA/README.md
+!DATA/artigos_sinteticos.csv
+!DATA/dois.csv
+*.xlsx
+
+# Tarefas e sessões do Octoparse
+.env
+*cookies*
+*.otd
+
+# Python / Jupyter
+__pycache__/
+.venv/
+.ipynb_checkpoints/
+
+# Sistema
+.DS_Store
+Thumbs.db
+desktop.ini
