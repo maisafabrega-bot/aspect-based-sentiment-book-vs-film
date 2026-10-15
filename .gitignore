@@ -1,12 +1,8 @@
-# Base coletada (NÃO versionar: resumos pertencem aos autores)
-# Só o README, a amostra sintética e a lista de URLs são publicados
+# Dados coletados (ficam só no computador de quem fez a coleta)
 DATA/*
 !DATA/README.md
-!DATA/teses_sinteticas.csv
-!DATA/urls.csv
-*.xlsx
 
-# Tarefas e sessões do Octoparse
+# Sessões do Octoparse
 .env
 *cookies*
 *.otd

@@ -1,19 +1,11 @@
-# Manipulação de dados
-pandas>=2.2
-openpyxl>=3.1   # leitura da exportação do Octoparse em .xlsx
-numpy>=1.26
+pandas
+openpyxl
+spacy
+scikit-learn
+matplotlib
+seaborn
+wordcloud
+jupyterlab
 
-# PLN
-spacy>=3.7,<4
-# modelo: python -m spacy download pt_core_news_lg
-
-# Tópicos (TF-IDF + NMF)
-scikit-learn>=1.4
-
-# Visualização
-matplotlib>=3.8
-
-# Notebooks
-jupyterlab>=4.1
-
-# Opcional (seção 8 do notebook): pip install bertopic sentence-transformers
+# Depois de instalar, baixe o modelo de português do spaCy:
+# python -m spacy download pt_core_news_lg
