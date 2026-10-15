@@ -20,15 +20,17 @@ Colunas da exportação do Octoparse e como o notebook as usa:
 |---|---|---|---|
 | `DOI` | `doi` | DOI do trabalho (também gera o link `url`) | `10.11606/D.45.2021.tde-07062021-135753` |
 | `Documento` | `nivel` | Tipo de trabalho | `Dissertação de Mestrado` |
-| `Autor` | — | Não usado (dado pessoal) | — |
+| `Primeiro_Autor` | — | Não usado (dado pessoal) | — |
 | `Unidade_USP` | `unidade` | Unidade da USP | `Escola Politécnica (EP)` |
 | `Area` | `area` | Área de concentração do programa | `Ciência da Computação` |
 | `Data_Defesa` | `ano` | Data de defesa (o notebook usa só o ano) | `2021-05-04` |
 | `Imprenta` | — | Não usado (cidade e ano) | `São Paulo, 2021` |
 | `Título_Port` | `titulo` | Título em português | — |
 | `Palavras_chave_Port` | `palavras_chave` | Palavras-chave, separadas por `;` | `BERT; Acórdãos` |
-| `Resumo_Port` | `resumo` | Resumo (em 16 trabalhos, o texto está em inglês) | — |
+| `Resumo_Port` | `resumo` | Resumo em português | — |
 | `Data_Publicação` | — | Não usado | `2021-06-14` |
+
+> **Tradução:** em 16 trabalhos, o site trazia título, palavras-chave ou resumo apenas em inglês. Esses campos foram traduzidos para o português depois da coleta, para que todos os trabalhos passem pelas mesmas etapas de PLN. [Descrever como foi feita a tradução: manual ou com qual ferramenta.]
 
 ## Coleta (Octoparse)
 
