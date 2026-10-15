@@ -1,36 +1,34 @@
 # DATA
 
-A base completa **não é publicada** neste repositório: ela fica apenas no computador de quem fez a coleta e é ignorada pelo `.gitignore`. Aqui estão o dicionário de dados, uma amostra sintética para testar o notebook e a lista de URLs (quando a coleta for feita), que permite reconstruir a base.
+A exportação do Octoparse fica apenas no computador de quem fez a coleta e é ignorada pelo `.gitignore`. Aqui estão o dicionário de dados e uma amostra sintética para testar o notebook.
 
 ## Arquivos
 
 | Arquivo | Conteúdo | Publicado? |
 |---|---|---|
-| `teses_sinteticas.csv` | 16 trabalhos **inventados**, no mesmo formato dos dados reais | ✅ |
-| `urls.csv` | Lista das URLs dos trabalhos analisados (gerada pelo notebook) | ✅ |
-| `Biblioteca_de_Teses_-_Home1.xlsx` | Exportação do Octoparse (uma linha por campo) | ❌ |
-| `teses_usp_pln.csv` | Base tratada, uma linha por trabalho (gerada pelo notebook 01) | ❌ |
-| `anotacao_manual.csv` | Amostra anotada à mão para a validação (gerada pelo notebook) | ❌ |
-| `resultados/` | Tabelas geradas pelo notebook 02 | ❌ (as figuras finais vão no README) |
+| `teses_sinteticas.csv` | 16 trabalhos **inventados**, para testar o notebook sem os dados reais | ✅ |
+| `Biblioteca_de_Teses_Scraping_xml.xlsx` | Exportação do Octoparse, uma linha por trabalho | ❌ |
+| `teses_usp_pln.csv` | Base limpa e sem a coluna de autor (gerada pelo notebook) | ❌ por enquanto |
+| `anotacao_manual.csv` | Amostra para a validação manual (gerada pelo notebook) | ❌ |
+| `resultados/` | Tabelas geradas pelo notebook, incluindo a de lacunas | ❌ (as figuras finais vão no README) |
 
 ## Dicionário de dados
 
-| Coluna | Descrição | Exemplo |
-|---|---|---|
-| `id_trabalho` | Identificador do trabalho (parte final da URL) | `tde-01012021-120000` |
-| `titulo` | Título do trabalho | — |
-| `nivel` | Mestrado ou doutorado | `Dissertação de Mestrado` |
-| `unidade` | Unidade da USP | `Escola Politécnica` |
-| `area_concentracao` | Área de concentração do programa | `Engenharia de Computação` |
-| `orientador` | Nome do orientador ou orientadora | — |
-| `ano` | Ano de defesa | `2021` |
-| `palavras_chave` | Palavras-chave em português, separadas por `;` | `PLN; aumento de dados` |
-| `resumo_pt` | Resumo em português | — |
-| `resumo_en` | Resumo em inglês (*abstract*) | — |
-| `url` | Link da página do trabalho | — |
-| `data_coleta` | Data da coleta | `2026-10-15` |
+Colunas da exportação do Octoparse e como o notebook as usa:
 
-O nome do autor do trabalho não é necessário para a análise e por isso não é coletado.
+| Coluna no Octoparse | Coluna no notebook | Descrição | Exemplo |
+|---|---|---|---|
+| `DOI` | `doi` | DOI do trabalho (também gera o link `url`) | `10.11606/D.45.2021.tde-07062021-135753` |
+| `Documento` | `nivel` | Tipo de trabalho | `Dissertação de Mestrado` |
+| `Autor` | — | Não usado (dado pessoal) | — |
+| `Unidade_USP` | `unidade` | Unidade da USP | `Escola Politécnica (EP)` |
+| `Area` | `area` | Área de concentração do programa | `Ciência da Computação` |
+| `Data_Defesa` | `ano` | Data de defesa (o notebook usa só o ano) | `2021-05-04` |
+| `Imprenta` | — | Não usado (cidade e ano) | `São Paulo, 2021` |
+| `Título_Port` | `titulo` | Título em português | — |
+| `Palavras_chave_Port` | `palavras_chave` | Palavras-chave, separadas por `;` | `BERT; Acórdãos` |
+| `Resumo_Port` | `resumo` | Resumo (em 16 trabalhos, o texto está em inglês) | — |
+| `Data_Publicação` | — | Não usado | `2021-06-14` |
 
 ## Coleta (Octoparse)
 
@@ -51,9 +49,9 @@ A tabela de resultados não mostra o resumo, então a tarefa tem **dois níveis*
 1. **Lista de resultados:** depois de fazer a busca no navegador do Octoparse, mude a paginação para **50 por página**. Crie um loop sobre as linhas da tabela e extraia título, link, área de concentração, nível, unidade e ano de defesa. Configure a paginação pelo botão **"Próxima página →"** (*Pagination → Click to paginate*). Com 127 resultados, são 3 páginas.
 2. **Página de cada trabalho:** para cada link, abra a página e extraia orientador, palavras-chave, resumo em português e resumo em inglês.
 
-Configuração da execução: **local**, com intervalo de 3 a 5 s entre as ações e uma execução por vez. Exporte em **Excel** ou **CSV (UTF-8)** e salve nesta pasta. O notebook `01_tratamento_coleta` faz a conversão para o dicionário acima.
+Configuração da execução: **local**, com intervalo de 3 a 5 s entre as ações e uma execução por vez. Exporte em **Excel** com uma linha por trabalho, nomeie as colunas como na tabela acima e salve nesta pasta.
 
-> ⚠️ **Desative a remoção de duplicatas do Octoparse.** A exportação tem uma linha por campo (ex.: *Unidade da USP → ICMC*). Com a remoção de duplicatas ativa, linhas iguais de trabalhos diferentes são apagadas, e campos como unidade, área de concentração e orientador ficam vazios na maioria dos trabalhos. Para evitar isso, inclua também a URL da página (*Page URL*) em cada linha extraída.
+> ⚠️ **Desative a remoção de duplicatas do Octoparse** e confira se todas as páginas de resultados foram coletadas (127 trabalhos). Numa primeira coleta, uma página inteira faltou e vários campos saíram vazios por causa da remoção de duplicatas.
 
 ### 3. Conferência
 - O número de linhas exportadas deve ser igual ao total da busca (127).

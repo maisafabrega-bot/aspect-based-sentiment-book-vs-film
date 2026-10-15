@@ -41,11 +41,12 @@ Os métodos são agrupados em cinco fases, que acompanham a história do PLN:
 ## Fluxo do Projeto
 
 1. **Coleta de dados (Octoparse):** busca na Biblioteca Digital da USP e extração dos metadados e do resumo de cada trabalho. Os detalhes estão em [DATA/README.md](DATA/README.md).
-2. **Tratamento da coleta (pandas):** o Octoparse exporta uma linha por campo. O notebook [01_tratamento_coleta](NOTEBOOK/01_tratamento_coleta.ipynb) transforma isso em uma linha por trabalho, limpa os textos, remove dados pessoais e confere se a coleta está completa.
+2. **Limpeza (pandas):** leitura da exportação do Octoparse, padronização das colunas, remoção de espaços repetidos e da coluna de autor, e identificação dos resumos escritos em inglês.
 3. **Perfil da produção:** trabalhos por ano, nível (mestrado e doutorado) e unidade.
 4. **Tarefas e métodos:** classificação por dicionário e evolução dos métodos ao longo do tempo.
 5. **Termos e tópicos (spaCy e scikit-learn):** termos frequentes, termos emergentes e modelagem de tópicos.
 6. **Validação:** anotação manual de uma amostra de cerca de 40 trabalhos e cálculo de precisão e cobertura da classificação automática.
+7. **Análise de lacunas:** cruzamentos tarefa × método, unidade × tarefa e tarefa × período, e lista automática das tarefas pouco estudadas ou ainda sem métodos recentes (*transformers* e LLMs).
 
 ## Resultados e Insights
 
@@ -66,13 +67,13 @@ _[Preencher ao final da análise.]_
 ## Como Usar Este Repositório
 
 1. **Dados:** a pasta [DATA](DATA/) contém o dicionário de dados e uma **amostra sintética** (`teses_sinteticas.csv`, com trabalhos inventados) no mesmo formato dos dados reais.
-2. **Notebooks:** rode primeiro o [01_tratamento_coleta](NOTEBOOK/01_tratamento_coleta.ipynb), que gera `DATA/teses_usp_pln.csv` a partir da exportação do Octoparse, e depois o [02_analise_teses_pln](NOTEBOOK/02_analise_teses_pln.ipynb), no Google Colab ou no Jupyter.
+2. **Notebook:** coloque a exportação do Octoparse na pasta `DATA/` e abra o [notebook](NOTEBOOK/analise_teses_pln.ipynb) no Google Colab ou no Jupyter. Ele faz todas as etapas, da limpeza à análise de lacunas.
 3. **Instalação local (opcional):**
    ```bash
    pip install -r requirements.txt
    python -m spacy download pt_core_news_lg
    ```
-4. **Execução:** ajuste a seção *Configuração* de cada notebook (arquivo de entrada, total esperado, número de tópicos) e rode as células em ordem. Sem os dados reais, o notebook de análise roda com a amostra sintética.
+4. **Execução:** ajuste a seção *Configuração* (arquivo de entrada, níveis incluídos e número de tópicos) e rode as células em ordem. Sem os dados reais, o notebook roda com a amostra sintética.
 
 ## Dados e Ética
 
