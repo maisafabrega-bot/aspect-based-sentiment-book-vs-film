@@ -14,7 +14,18 @@ Processamento de Linguagem Natural é a área da computação que ensina computa
 2. **Processamento com spaCy:** tokenização, lematização e classes gramaticais dos resumos, com o modelo `pt_core_news_lg`.
 3. **Palavras e sintagmas:** palavras e sintagmas nominais mais frequentes e nuvem de palavras.
 4. **Evolução no tempo:** palavras que ganharam e perderam espaço nos trabalhos mais recentes.
-5. **Ações de PLN e metodologia:** classificação de cada trabalho por dicionário de expressões (`PhraseMatcher`).
+5. **Ações de PLN e metodologia:** classificação de cada trabalho por dicionário de expressões (`PhraseMatcher`). As ações seguem os níveis clássicos da arquitetura do PLN:
+
+   | Nível | O que é analisado |
+   |---|---|
+   | Fonético-fonológico | Sons da fala |
+   | Morfológico-lexical | Formação e classe das palavras |
+   | Sintático | Estrutura das frases |
+   | Semântico | Significado de palavras, frases e textos |
+   | Discursivo-pragmático | Relação entre frases, intenção e contexto |
+   | Geração de linguagem | Produção de texto a partir de dados ou de outro texto |
+
+   Os cinco primeiros são os níveis de análise linguística (Liddy, 2001; Jurafsky; Martin, 2009; Indurkhya; Damerau, 2010). A geração de linguagem completa a arquitetura (Reiter; Dale, 2000; Gatt; Krahmer, 2018).
 6. **Modelagem de tópicos:** TF-IDF e NMF para agrupar os trabalhos por assunto.
 7. **Análise de lacunas:** mapas de calor que cruzam ações de PLN com metodologia, unidade e década.
 
@@ -43,11 +54,21 @@ Sugestões são bem-vindas. Abra uma *issue* ou faça um *fork* e envie um *pull
 
 ## Referências
 
+GATT, A.; KRAHMER, E. Survey of the state of the art in natural language generation: core tasks, applications and evaluation. **Journal of Artificial Intelligence Research**, v. 61, p. 65-170, 2018.
+
 HONNIBAL, M.; MONTANI, I.; VAN LANDEGHEM, S.; BOYD, A. **spaCy: Industrial-strength Natural Language Processing in Python**. Zenodo, 2020. DOI: 10.5281/zenodo.1212303.
+
+INDURKHYA, N.; DAMERAU, F. J. (ed.). **Handbook of Natural Language Processing**. 2. ed. Boca Raton: CRC Press, 2010.
+
+JURAFSKY, D.; MARTIN, J. H. **Speech and Language Processing**. 2. ed. Upper Saddle River: Pearson Prentice Hall, 2009.
 
 LEE, D. D.; SEUNG, H. S. Learning the parts of objects by non-negative matrix factorization. **Nature**, v. 401, p. 788-791, 1999. DOI: 10.1038/44565.
 
+LIDDY, E. D. Natural language processing. In: **Encyclopedia of Library and Information Science**. 2. ed. New York: Marcel Dekker, 2001.
+
 PEDREGOSA, F. et al. Scikit-learn: machine learning in Python. **Journal of Machine Learning Research**, v. 12, p. 2825-2830, 2011.
+
+REITER, E.; DALE, R. **Building Natural Language Generation Systems**. Cambridge: Cambridge University Press, 2000.
 
 ## Licença
 
