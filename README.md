@@ -26,6 +26,16 @@ Processamento de Linguagem Natural é a área da computação que ensina computa
    | Geração de linguagem | Produção de texto a partir de dados ou de outro texto |
 
    Os cinco primeiros são os níveis de análise linguística (Liddy, 2001; Jurafsky; Martin, 2009; Indurkhya; Damerau, 2010). A geração de linguagem completa a arquitetura (Reiter; Dale, 2000; Gatt; Krahmer, 2018).
+
+   As metodologias seguem os paradigmas pelos quais o PLN passou:
+
+   | Metodologia | Paradigma | Referências |
+   |---|---|---|
+   | Regras e léxicos | Simbólico | Jurafsky; Martin (2009) |
+   | Estatística e aprendizado de máquina | Estatístico (engenharia de atributos) | Manning; Schütze (1999); Liu et al. (2023) |
+   | Redes neurais e *embeddings* | Neural (engenharia de arquitetura) | Mikolov et al. (2013); Goldberg (2017); Liu et al. (2023) |
+   | Transformers e BERT | Pré-treino e ajuste fino | Vaswani et al. (2017); Devlin et al. (2019); Liu et al. (2023) |
+   | LLMs | Pré-treino, *prompt* e predição | Brown et al. (2020); Liu et al. (2023); Zhao et al. (2023) |
 6. **Modelagem de tópicos:** TF-IDF e NMF para agrupar os trabalhos por assunto.
 7. **Análise de lacunas:** mapas de calor que cruzam ações de PLN com metodologia, unidade e década.
 
@@ -54,7 +64,13 @@ Sugestões são bem-vindas. Abra uma *issue* ou faça um *fork* e envie um *pull
 
 ## Referências
 
+BROWN, T. B. et al. Language models are few-shot learners. In: ADVANCES IN NEURAL INFORMATION PROCESSING SYSTEMS (NeurIPS), 33., 2020. **Proceedings** […]. Red Hook: Curran Associates, 2020. p. 1877-1901.
+
+DEVLIN, J.; CHANG, M.-W.; LEE, K.; TOUTANOVA, K. BERT: pre-training of deep bidirectional transformers for language understanding. In: CONFERENCE OF THE NORTH AMERICAN CHAPTER OF THE ASSOCIATION FOR COMPUTATIONAL LINGUISTICS (NAACL), 2019, Minneapolis. **Proceedings** […]. Minneapolis: ACL, 2019. p. 4171-4186.
+
 GATT, A.; KRAHMER, E. Survey of the state of the art in natural language generation: core tasks, applications and evaluation. **Journal of Artificial Intelligence Research**, v. 61, p. 65-170, 2018.
+
+GOLDBERG, Y. **Neural Network Methods for Natural Language Processing**. San Rafael: Morgan & Claypool, 2017. (Synthesis Lectures on Human Language Technologies).
 
 HONNIBAL, M.; MONTANI, I.; VAN LANDEGHEM, S.; BOYD, A. **spaCy: Industrial-strength Natural Language Processing in Python**. Zenodo, 2020. DOI: 10.5281/zenodo.1212303.
 
@@ -66,9 +82,19 @@ LEE, D. D.; SEUNG, H. S. Learning the parts of objects by non-negative matrix fa
 
 LIDDY, E. D. Natural language processing. In: **Encyclopedia of Library and Information Science**. 2. ed. New York: Marcel Dekker, 2001.
 
+LIU, P.; YUAN, W.; FU, J.; JIANG, Z.; HAYASHI, H.; NEUBIG, G. Pre-train, prompt, and predict: a systematic survey of prompting methods in natural language processing. **ACM Computing Surveys**, v. 55, n. 9, p. 1-35, 2023. DOI: 10.1145/3560815.
+
+MANNING, C. D.; SCHÜTZE, H. **Foundations of Statistical Natural Language Processing**. Cambridge: MIT Press, 1999.
+
+MIKOLOV, T.; CHEN, K.; CORRADO, G.; DEAN, J. **Efficient estimation of word representations in vector space**. arXiv:1301.3781, 2013.
+
 PEDREGOSA, F. et al. Scikit-learn: machine learning in Python. **Journal of Machine Learning Research**, v. 12, p. 2825-2830, 2011.
 
 REITER, E.; DALE, R. **Building Natural Language Generation Systems**. Cambridge: Cambridge University Press, 2000.
+
+VASWANI, A. et al. Attention is all you need. In: ADVANCES IN NEURAL INFORMATION PROCESSING SYSTEMS (NeurIPS), 30., 2017, Long Beach. **Proceedings** […]. Red Hook: Curran Associates, 2017. p. 5998-6008.
+
+ZHAO, W. X. et al. **A survey of large language models**. arXiv:2303.18223, 2023.
 
 ## Licença
 
